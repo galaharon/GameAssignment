@@ -32,6 +32,11 @@ public class BeatFile
 		return timeDiffs.length;
 	}
 	
+	public String songName()
+	{
+		return this.songName;
+	}
+	
 	public void toFile(String name)
 	{
 		File file = new File("resources" + separator + "maps" + separator + name + ".map");
@@ -69,10 +74,9 @@ public class BeatFile
 		
 	}
 	
-	public static BeatFile fromFile(String name)
+	public static BeatFile fromFile(File file)
 	{
-		File file = new File("resources" + separator + "maps" + separator + name + ".map");
-		Logger.trace("Attempting to read " + name + ".map");
+		Logger.trace("Attempting to read " + file.getName());
 		try(FileInputStream in= new FileInputStream(file))
 		{
 			FileChannel channel = in.getChannel();
@@ -89,7 +93,7 @@ public class BeatFile
 		}
 		catch (IOException e)
 		{
-			Logger.fatal("Failed to read " + name + ".map");
+			Logger.fatal("Failed to read " + file.getName());
 			Logger.trace(e);
 			throw Utils.throwUnchecked(e);
 		}

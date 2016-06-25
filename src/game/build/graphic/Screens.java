@@ -55,7 +55,7 @@ public class Screens
 		return menuPane;
 	}
 
-	public static MenuPane playSelectScreen()
+	public static MenuPane modeSelect()
 	{
 		MenuPane menuPane = new MenuPane("main_background");
 		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width -16 - 2*BUTTON.width)/2,200, ENDLESS_BUTTON));
@@ -82,14 +82,27 @@ public class Screens
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Beatmap file (*.map)", "map");
 		chooser.setDialogTitle("Load a song");
 		chooser.setFileFilter(filter);
-		MenuPane pane = playSelectScreen();
+		MenuPane pane = modeSelect();
 		int returnVal = chooser.showOpenDialog(pane);
 		if(returnVal == JFileChooser.APPROVE_OPTION)
 		{
 			File song = chooser.getSelectedFile();
 			System.out.println(song);
-			//return GAME(song);
+			NormalMode mode = new NormalMode(song);
+			return mode;
 		}
 		return pane;
+	}
+
+	public static MenuPane normalOver(String songName, int min, int sec, int ms)
+	{
+		System.out.println("Lost " + songName +", survived for " +  (min != 0 ? min + " minutes " : "") + String.format("%d.%d seconds",sec, ms));
+		return mainMenu();
+	}
+
+	public static MenuPane normalWon(String songName)
+	{
+		System.out.println("Won " + songName + "!");
+		return mainMenu();
 	}
 }

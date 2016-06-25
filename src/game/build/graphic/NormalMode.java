@@ -1,43 +1,47 @@
 package game.build.graphic;
 
+import game.build.main.BeatFile;
 import game.build.main.Main;
 import game.build.main.SongPlayer;
 import game.build.util.Logger;
 import game.build.util.Utils;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("serial")
-public class EndlessMode extends BaseGame
+public class NormalMode extends BaseGame
 {
-	private long diff = 1500;
+	private int index = 0;
+	private final BeatFile beatMap;
 	
-	public EndlessMode()
+	public NormalMode(File file)
 	{
-		super("endless");
-		Logger.info("Endless mode activated.");
+		super("play_normal");
+		Logger.info("Normal mode activated.");
+		this.beatMap = BeatFile.fromFile(file);
+		SongPlayer.playSong(this.beatMap.songName());
 	}
-	
+
+	@Override
 	public void update()
 	{
 		long curr = System.currentTimeMillis();
-		if(curr - this.lastTime >= this.diff)
+		if(index < this.beatMap.arrSize() && curr - this.lastTime >= this.beatMap.get(index)-8) //8ms offset seems to fix input lag
 		{
+			System.out.println("Beat");
+			index++;
 			Random r = new Random();
-			this.genRandomProjectiles(r.nextInt(5) + 1);
-			if(Utils.percentChance(diff/40D))
-			{
-				diff = Math.max(diff - 10 - r.nextInt(100), 200);
-			}
+			this.genRandomProjectiles(r.nextInt(3) + 1);
 			if(Utils.percentChance(1))
 			{
 				vel+=r.nextDouble();
 			}
 			this.lastTime = curr;
+			//Change depending on volume, etc.Iterator<Projectile> it = projectiles.iterator();
 		}
-		
 		Iterator<Projectile> it = projectiles.iterator();
 		while(it.hasNext())
 		{
@@ -53,9 +57,9 @@ public class EndlessMode extends BaseGame
 		this.repaint();
 		this.checkForCollision();
 	}
-	
+
 	@Override
-	public void onHit()
+	void onHit()
 	{
 		SongPlayer.playSoundEffect("hit");
 		SongPlayer.playSoundEffect("loss");
@@ -68,6 +72,17 @@ public class EndlessMode extends BaseGame
 		int min = (int) TimeUnit.MILLISECONDS.toMinutes(survivedTime);
 		int sec = (int) (TimeUnit.MILLISECONDS.toSeconds(survivedTime) - TimeUnit.MINUTES.toSeconds(min));
 		int ms = (int) (survivedTime % 1000);
-		Main.setCurrentScreen(Screens.endlessOver(min, sec, ms));
+		Main.setCurrentScreen(Screens.normalOver(beatMap.songName(),min, sec, ms));
+	}
+	
+	public void gameWon()
+	{
+		SongPlayer.playSoundEffect("won");
+		for(Projectile p : this.projectiles)
+		{
+			p.kill();
+		}
+		this.update();
+		Main.setCurrentScreen(Screens.normalWon(beatMap.songName()));
 	}
 }

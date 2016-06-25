@@ -7,6 +7,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import game.build.graphic.EndlessMode;
 import game.build.graphic.LevelCreator;
 import game.build.graphic.MenuPane;
+import game.build.graphic.NormalMode;
 import game.build.graphic.Screens;
 import game.build.util.Logger;
 import game.build.util.Resources;
@@ -54,6 +55,16 @@ public class Main
 				{
 					((LevelCreator)currentPane).songFinished();
 				}
+			}
+			else if(currentPane instanceof NormalMode)
+			{
+				((NormalMode)currentPane).update();
+				if(!SongPlayer.playing.get())
+				{
+					((NormalMode)currentPane).gameWon();
+				}
+				currentPane.validate();
+				currentPane.repaint();
 			}
 		}
 		

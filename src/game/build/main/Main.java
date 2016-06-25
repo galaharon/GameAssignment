@@ -1,62 +1,36 @@
 package game.build.main;
 
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import game.build.ref.Reference;
-import game.build.util.Trigger;
+import static game.build.util.Reference.GAME_DIMENSION;
+import static game.build.util.Reference.TITLE;
+import static game.build.util.Reference.VERSION;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import game.build.graphic.ButtonPanel;
+import game.build.graphic.MenuPane;
+import game.build.util.Logger;
+import game.build.util.Resources;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.concurrent.TimeUnit;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class Main
 {
-	private static final Trigger stopFlag = new Trigger();
-	private static final JFrame frame = new JFrame(Reference.TITLE + Reference.VERSION);
-	private static final Listener listener =  new Listener();
-	private static long lastSaveTime = System.currentTimeMillis();
-	
-	private static final Game GAME = new Game();
-	
-	//TODO Documentation + logging
+	private static final JFrame frame = new JFrame(TITLE + " " + VERSION);
+	private static final BufferedImage cursorImage = Resources.getIcon("cursor", ".png");
+	private static final Cursor defaultCustom = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(25, 25), "customCursor");
 	
 	public static void main(String[] args) throws Exception
 	{
-		//initialisation stuff goes here
+		Logger.enableConsoleMode();
+		Logger.info("System loading!");
+		Logger.info("Initialising frame.");
 		initFrame();
-
-		//mainLoop
-		while(!stopFlag.isTriggered())
-		{
-			try
-			{
-				mainLoop();
-				if(System.currentTimeMillis() - lastSaveTime > TimeUnit.MINUTES.toMillis(15)) //Saves automatically every 15 mins.
-				{
-					save();
-				}
-			}
-			catch(Exception e)
-			{
-				//Handle exception
-				stopFlag.setTrigger();
-			}
-		}
-		System.out.println("TRIGGERED");
-		// clean up
-	}
-	
-	/**
-	 * Sets the flag to stop the program from running.
-	 */
-	public static void setStopFlag()
-	{
-		stopFlag.setTrigger();
+		Logger.info("Frame initialised successfully.");
 	}
 	
 	/**
@@ -64,115 +38,45 @@ public class Main
 	 */
 	private static void initFrame()
 	{
-		frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		frame.addWindowListener(listener);
-		frame.addWindowFocusListener(listener);
-		frame.addWindowStateListener(listener);
+		frame.setCursor(defaultCustom);
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setPreferredSize(GAME_DIMENSION);
+		frame.setResizable(false);
 		
-		JLabel label = new JLabel("");
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		if(d.height < 720 || d.width < 1280)
-		{
-			label.setPreferredSize(d);
-		}
-		else
-		{
-			label.setPreferredSize(new Dimension(1280,720));
-		}
+		Logger.info("Initialising menu... ");
+		MenuPane menuPane = new MenuPane();
 		
-		frame.getContentPane().add(label, BorderLayout.CENTER);
+		menuPane.add(new ButtonPanel(0,0));
+		
+		
+		frame.add(menuPane);
+		
 		frame.pack();
-		frame.setVisible(true);
+		frame.setLocationRelativeTo(null); //places in centre of screen
+		frame.setVisible(true); 
 	}
 	
-	private static void mainLoop() throws Exception
+	public static void changeCursorColour(int r, int g, int b)
 	{
-		//menu stuff happens first, until game starts to run
-		if(GAME.isRunning())
+		BufferedImage copy = Resources.deepCopy(cursorImage);
+		WritableRaster raster = copy.getRaster();
+		for(int y = 0; y < copy.getHeight(); y++)
 		{
-			GAME.preLoop();
-			GAME.tick();
-			GAME.postLoop();
-			return;
+			for(int x = 0; x < copy.getWidth(); x++)
+			{
+				int[] pixel = raster.getPixel(x, y, (int[])null);
+				pixel[0] = r;
+				pixel[1] = g;
+				pixel[2] = b;
+				raster.setPixel(x, y, pixel);
+			}
 		}
-		//display menu here
+		frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(copy, new Point(25,25), "customCursor" + Integer.toHexString((r << 16)|(g<<8)|b)));
 	}
 	
-	public static void save()
+	public static void defaultCustomCursor()
 	{
-		System.out.println("Saving!");
-		//Save here
-		lastSaveTime = System.currentTimeMillis();
-	}
-	
-	public static void pauseGame()
-	{
-		if(isGamePaused())
-		{
-			System.out.println("Game already paused!");
-			return;
-		}
-		GAME.pause();
-		//Window stuff
-	}
-	
-	public static void unpauseGame()
-	{
-		if(!isGamePaused())
-		{
-			System.out.println("Game already running!");
-			return;
-		}
-		//Window Stuff
-		GAME.unpause();
-	}
-	
-	public static boolean isGamePaused()
-	{
-		return GAME.isGamePaused();
-	}
-	
-	private static class Listener extends WindowAdapter //TODO add functionality.
-	{
-		@Override
-		public void windowClosing(WindowEvent e)
-		{
-			//XXX IDK?
-			System.out.println("Closing!");
-		}
-
-		@Override
-		public void windowClosed(WindowEvent e)
-		{
-			System.out.println("Closed!");
-			setStopFlag();
-		}
-
-		@Override
-		public void windowIconified(WindowEvent e)
-		{
-			System.out.println("Iconed!");
-			//PAUSE?
-		}
-
-		@Override
-		public void windowDeiconified(WindowEvent e)
-		{
-			System.out.println("Deiconed!");
-			//UNPAUSE?
-		}
-
-		@Override
-		public void windowGainedFocus(WindowEvent e)
-		{
-			System.out.println("Gained focus!");
-		}
-
-		@Override
-		public void windowLostFocus(WindowEvent e)
-		{
-			System.out.println("Lost Focus!");
-		}
+		frame.setCursor(defaultCustom);
 	}
 	
 }

@@ -16,12 +16,14 @@ import java.awt.image.BufferedImage;
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 
+@SuppressWarnings("serial")
 public class MenuPane extends JLayeredPane implements MouseMotionListener, MouseListener
 {
-	private final BufferedImage bg = Resources.getImage("main_background");
+	private final BufferedImage bg;
 	
-	public MenuPane()
+	public MenuPane(String name)
 	{
+		this.bg = Resources.getImage(name);
 		this.setLayout(new GridBagLayout());
 		this.addMouseMotionListener(this);
 		this.addMouseListener(this);

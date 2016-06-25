@@ -40,7 +40,6 @@ public class Logger
 				
 				if(f.getName().startsWith("log"))
 				{
-					System.out.println(f);
 					oldestLog = oldestLog == null ? f : f.lastModified() < oldestLog.lastModified() ? f : oldestLog;
 				}
 				else if(f.getName().startsWith("debug"))

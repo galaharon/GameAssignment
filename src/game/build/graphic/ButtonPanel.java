@@ -1,8 +1,13 @@
 package game.build.graphic;
 
+import static game.build.util.Reference.BACK_BUTTON;
 import static game.build.util.Reference.BUTTON;
+import static game.build.util.Reference.CREATE_BUTTON;
+import static game.build.util.Reference.ENDLESS_BUTTON;
+import static game.build.util.Reference.EXIT_BUTTON;
+import static game.build.util.Reference.INFO_BUTTON;
+import static game.build.util.Reference.PLAY_BUTTON;
 import game.build.main.Main;
-import game.build.util.Reference;
 import game.build.util.Resources;
 
 import java.awt.event.MouseEvent;
@@ -10,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Random;
 
+@SuppressWarnings("serial")
 public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotionListener
 {
 	private final String name;
@@ -28,11 +34,21 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 	public void mousePressed(MouseEvent e)
 	{
 		if(this.isInBounds(e))
-		{
-			System.out.println(name);
-			if(this.name.equals("exit"))
+		{			
+			switch(this.name)
 			{
-				Main.exit();
+			case EXIT_BUTTON:
+				Main.exit(); return;
+			case CREATE_BUTTON:
+				Main.setCurrentScreen(Screens.levelCreation()); return;
+			case INFO_BUTTON:
+				Main.setCurrentScreen(Screens.infoScreen()); return;
+			case PLAY_BUTTON:
+				Main.setCurrentScreen(Screens.playSelectScreen()); return;
+			case BACK_BUTTON:
+				Main.setCurrentScreen(Screens.mainMenu()); return;
+			case ENDLESS_BUTTON:
+				Main.setCurrentScreen(Screens.endlessMode());
 			}
 		}
 	}
@@ -55,7 +71,7 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 	{
 		System.out.println(this.name + " exited");
 		Main.defaultCustomCursor();
-		this.image = Resources.getImage("button");
+		this.image = Resources.getImage("button_" + this.name);
 		this.repaint();
 	}
 

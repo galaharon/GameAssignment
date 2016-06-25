@@ -1,14 +1,12 @@
 package game.build.main;
 
-import static game.build.util.Reference.BUTTON;
 import static game.build.util.Reference.GAME_DIMENSION;
 import static game.build.util.Reference.TITLE;
 import static game.build.util.Reference.VERSION;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-import game.build.graphic.ButtonPanel;
 import game.build.graphic.MenuPane;
+import game.build.graphic.Screens;
 import game.build.util.Logger;
-import game.build.util.Reference;
 import game.build.util.Resources;
 
 import java.awt.BorderLayout;
@@ -25,12 +23,13 @@ public class Main
 	private static final JFrame frame = new JFrame(TITLE + " " + VERSION);
 	private static final BufferedImage cursorImage = Resources.getIcon("cursor", ".png");
 	private static final Cursor defaultCustom = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(25, 25), "customCursor");
+	private static MenuPane currentPane = null;
 	
 	public static void main(String[] args) throws Exception
 	{
 		Logger.enableConsoleMode();
 		Logger.info("System loading!");
-		Logger.info("Initialising frame.");
+		Logger.info("Initialising frame...");
 		initFrame();
 		Logger.info("Frame initialised successfully.");
 	}
@@ -45,17 +44,12 @@ public class Main
 		frame.setPreferredSize(GAME_DIMENSION);
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout());
-		
-		Logger.info("Initialising menu... ");
-		MenuPane menuPane = new MenuPane();
-		
-		int first = 300;
-		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width -32 - 2*BUTTON.width)/2,first, "play"));
-		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width +32)/2,first, "create"));
-		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width -32 - 2*BUTTON.width)/2, first + BUTTON.height + 32, "info"));
-		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width + 32)/2,first + BUTTON.height + 32, "exit"));
+
+		Logger.info("Initialising Main Menu...");
+		MenuPane menuPane = Screens.mainMenu();
 		
 		frame.add(menuPane);
+		currentPane = menuPane;
 		
 		frame.pack();
 		frame.setLocationRelativeTo(null); //places in centre of screen
@@ -78,6 +72,16 @@ public class Main
 			}
 		}
 		frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(copy, new Point(25,25), "customCursor" + Integer.toHexString((r << 16)|(g<<8)|b)));
+	}
+	
+	public static void setCurrentScreen(MenuPane pane)
+	{
+		frame.remove(currentPane);
+		currentPane = pane;
+		frame.add(pane);
+		frame.validate();
+		frame.repaint();
+		defaultCustomCursor();
 	}
 	
 	public static void defaultCustomCursor()

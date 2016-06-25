@@ -1,0 +1,65 @@
+05:04:22 [TRACE] Log count exceeds 10, deleting oldest debug and log.
+05:04:22 [INFO] System loading!
+05:04:22 [INFO] Initialising frame...
+05:04:22 [INFO] Initialising Main Menu...
+05:04:22 [INFO] Frame initialised successfully.
+05:04:23 [ERROR] Failed to load image endless
+05:04:23 [ERROR] Resorting to default graphic.
+05:04:23[EXCEPTION]java.util.concurrent.ExecutionException: javax.imageio.IIOException: Can't read input file!
+	at com.google.common.util.concurrent.AbstractFuture.getDoneValue(AbstractFuture.java:476)
+	at com.google.common.util.concurrent.AbstractFuture.get(AbstractFuture.java:435)
+	at com.google.common.util.concurrent.AbstractFuture$TrustedFuture.get(AbstractFuture.java:79)
+	at com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly(Uninterruptibles.java:143)
+	at com.google.common.cache.LocalCache$Segment.getAndRecordStats(LocalCache.java:2352)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2324)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2286)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2201)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3953)
+	at com.google.common.cache.LocalCache$LocalManualCache.get(LocalCache.java:4790)
+	at game.build.util.Resources.getImage(Resources.java:46)
+	at game.build.util.Resources.getImage(Resources.java:38)
+	at game.build.graphic.MenuPane.<init>(MenuPane.java:26)
+	at game.build.graphic.EndlessMode.<init>(EndlessMode.java:21)
+	at game.build.graphic.Screens.endlessMode(Screens.java:49)
+	at game.build.graphic.ButtonPanel.mousePressed(ButtonPanel.java:51)
+	at game.build.graphic.MenuPane.mousePressed(MenuPane.java:114)
+	at java.awt.Component.processMouseEvent(Unknown Source)
+	at javax.swing.JComponent.processMouseEvent(Unknown Source)
+	at java.awt.Component.processEvent(Unknown Source)
+	at java.awt.Container.processEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.retargetMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.processMouseEvent(Unknown Source)
+	at java.awt.LightweightDispatcher.dispatchEvent(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$500(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+Caused by: javax.imageio.IIOException: Can't read input file!
+	at javax.imageio.ImageIO.read(Unknown Source)
+	at game.build.util.Resources.lambda$0(Resources.java:46)
+	at com.google.common.cache.LocalCache$LocalManualCache$1.load(LocalCache.java:4793)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3542)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2323)
+	... 42 more
+
+05:04:23 [INFO] Endless mode activated.

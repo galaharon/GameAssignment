@@ -10,6 +10,7 @@ public class Utils
 	 * Used to rethrow checked exceptions without wrapping them in an unchecked exception.
 	 * @param e - the exception to throw
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T extends Throwable> RuntimeException throwUnchecked(Throwable e) throws T
 	{
 		throw (T) e;

@@ -1,5 +1,0 @@
-02:40:23 [TRACE] Log count exceeds 10, deleting oldest debug and log.
-02:40:23 [INFO] System loading!
-02:40:23 [INFO] Initialising frame.
-02:40:23 [INFO] Initialising menu... 
-02:40:23 [INFO] Frame initialised successfully.

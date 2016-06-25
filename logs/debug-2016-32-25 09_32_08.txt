@@ -1,0 +1,46 @@
+09:32:08 [TRACE] Log count exceeds 10, deleting oldest debug and log.
+09:32:08 [INFO] System loading!
+09:32:08 [INFO] Initialising frame...
+09:32:08 [INFO] Initialising Main Menu...
+09:32:08 [INFO] Now playing: main
+09:32:08 [INFO] Frame initialised successfully.
+09:32:14 [INFO] Now playing: endless
+09:32:14 [INFO] Endless mode activated.
+09:32:16 [ERROR] Failed to play effect: loss
+09:32:16 [ERROR] Failed to play effect: hit
+09:32:16 [EXCEPTION] java.io.FileNotFoundException: resources\fx\hit.mp3 (The system cannot find the path specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at game.build.main.SongPlayer.lambda$1(SongPlayer.java:60)
+	at java.lang.Thread.run(Unknown Source)
+
+09:32:16 [EXCEPTION] java.io.FileNotFoundException: resources\fx\loss.mp3 (The system cannot find the path specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at game.build.main.SongPlayer.lambda$1(SongPlayer.java:60)
+	at java.lang.Thread.run(Unknown Source)
+
+09:32:16 [INFO] Now playing: main
+09:32:29 [INFO] Now playing: endless
+09:32:29 [INFO] Endless mode activated.
+09:32:36 [ERROR] Failed to play effect: hit
+09:32:36 [ERROR] Failed to play effect: loss
+09:32:36 [EXCEPTION] java.io.FileNotFoundException: resources\fx\hit.mp3 (The system cannot find the path specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at game.build.main.SongPlayer.lambda$1(SongPlayer.java:60)
+	at java.lang.Thread.run(Unknown Source)
+
+09:32:36 [EXCEPTION] java.io.FileNotFoundException: resources\fx\loss.mp3 (The system cannot find the path specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at game.build.main.SongPlayer.lambda$1(SongPlayer.java:60)
+	at java.lang.Thread.run(Unknown Source)
+
+09:32:36 [INFO] Now playing: main
+09:32:58 [TRACE] Clean up thread initiated.
+09:32:58 [TRACE] Clean up complete.

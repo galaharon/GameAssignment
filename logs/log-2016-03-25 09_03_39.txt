@@ -1,7 +1,0 @@
-09:03:39 [INFO] System loading!
-09:03:39 [INFO] Initialising frame...
-09:03:39 [INFO] Initialising Main Menu...
-09:03:39 [INFO] Now playing: main
-09:03:39 [INFO] Frame initialised successfully.
-09:03:47 [INFO] Now playing: endless
-09:03:47 [INFO] Endless mode activated.

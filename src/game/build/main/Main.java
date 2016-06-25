@@ -47,6 +47,7 @@ public class Main
 				currentPane.repaint();
 			}
 		}
+		
 	}
 	
 	/**

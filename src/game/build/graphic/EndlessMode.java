@@ -1,6 +1,7 @@
 package game.build.graphic;
 
 import game.build.main.Main;
+import game.build.main.SongPlayer;
 import game.build.util.Logger;
 import game.build.util.Utils;
 
@@ -9,6 +10,7 @@ import java.awt.Point;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JComponent;
 
@@ -42,16 +44,15 @@ public class EndlessMode extends MenuPane
 	public void update()
 	{
 		long curr = System.currentTimeMillis();
-		System.out.println(this.diff +", " + this.vel);
 		if(curr - this.lastTime >= this.diff)
 		{
 			Random r = new Random();
 			this.genRandomProjectiles(r.nextInt(5) + 1);
-			if(Utils.percentChance(diff/75D))
+			if(Utils.percentChance(diff/40D))
 			{
 				diff = Math.max(diff - 10 - r.nextInt(100), 200);
 			}
-			if(Utils.percentChance(0.1))
+			if(Utils.percentChance(1))
 			{
 				vel+=r.nextDouble();
 			}
@@ -71,8 +72,27 @@ public class EndlessMode extends MenuPane
 			p.update();
 		}
 		this.repaint();
+		this.checkForCollision();
 	}
 	
+	private void checkForCollision()
+	{
+		Point mouse = MouseInfo.getPointerInfo().getLocation();
+		int mouseX = mouse.x - this.getLocationOnScreen().x;
+		int mouseY = mouse.y - this.getLocationOnScreen().y;
+		
+		
+		for(Projectile p : projectiles)
+		{
+			if(p.xOffset <= mouseX && mouseX <= p.xOffset + p.getSize().width
+					&& p.yOffset <= mouseY && mouseY <= p.yOffset + p.getSize().height)
+			{
+				this.lostGame();
+				return;
+			}
+		}
+	}
+
 	private void genRandomProjectiles(int amount)
 	{
 		for(int i = 0; i < amount; i++)
@@ -94,12 +114,18 @@ public class EndlessMode extends MenuPane
 	
 	public void lostGame()
 	{
+		SongPlayer.playSoundEffect("hit");
+		SongPlayer.playSoundEffect("loss");
 		long survivedTime = System.currentTimeMillis() - this.startTime;
 		for(Projectile p : this.projectiles)
 		{
 			p.kill();
 		}
 		this.update();
-		Main.setCurrentScreen(Screens.endlessOver(survivedTime));
+		int min = (int) TimeUnit.MILLISECONDS.toMinutes(survivedTime);
+		int sec = (int) (TimeUnit.MILLISECONDS.toSeconds(survivedTime) - TimeUnit.MINUTES.toSeconds(min));
+		int ms = (int) (survivedTime % 1000);
+		Main.setCurrentScreen(Screens.endlessOver(min, sec, ms));
+		
 	}
 }

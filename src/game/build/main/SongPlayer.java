@@ -68,6 +68,7 @@ public class SongPlayer
 			{
 				Logger.error("Failed to play effect: " + name);
 				Logger.trace(e);
+				Utils.throwUnchecked(e);
             }
 		}).start();;
 	}

@@ -52,8 +52,9 @@ public class Screens
 		return new EndlessMode();
 	}
 
-	public static MenuPane endlessOver(long survivedTime)
+	public static MenuPane endlessOver(int min, int sec, int ms)
 	{
-		return null;
+		System.out.println((min != 0 ? min + " minutes " : "") + String.format("%d.%d seconds",sec, ms));
+		return mainMenu();
 	}
 }

@@ -1,0 +1,41 @@
+09:36:23 [TRACE] Log count exceeds 10, deleting oldest debug and log.
+09:36:23 [INFO] System loading!
+09:36:23 [INFO] Initialising frame...
+09:36:23 [INFO] Initialising Main Menu...
+09:36:23 [INFO] Now playing: main
+09:36:23 [INFO] Frame initialised successfully.
+09:36:24 [INFO] Now playing: endless
+09:36:25 [INFO] Endless mode activated.
+09:36:27 [ERROR] Failed to play effect: hit
+09:36:27 [EXCEPTION] java.io.FileNotFoundException: resources\fx\hit.mp3 (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at game.build.main.SongPlayer.lambda$1(SongPlayer.java:60)
+	at java.lang.Thread.run(Unknown Source)
+
+09:36:27 [INFO] Now playing: main
+09:36:34 [INFO] Now playing: endless
+09:36:34 [INFO] Endless mode activated.
+09:36:36 [ERROR] Failed to play effect: hit
+09:36:36 [EXCEPTION] java.io.FileNotFoundException: resources\fx\hit.mp3 (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at game.build.main.SongPlayer.lambda$1(SongPlayer.java:60)
+	at java.lang.Thread.run(Unknown Source)
+
+09:36:36 [INFO] Now playing: main
+09:36:39 [INFO] Now playing: endless
+09:36:39 [INFO] Endless mode activated.
+09:36:43 [ERROR] Failed to play effect: hit
+09:36:43 [INFO] Now playing: main
+09:36:43 [EXCEPTION] java.io.FileNotFoundException: resources\fx\hit.mp3 (The system cannot find the file specified)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(Unknown Source)
+	at java.io.FileInputStream.<init>(Unknown Source)
+	at game.build.main.SongPlayer.lambda$1(SongPlayer.java:60)
+	at java.lang.Thread.run(Unknown Source)
+
+09:37:27 [TRACE] Clean up thread initiated.
+09:37:27 [TRACE] Clean up complete.

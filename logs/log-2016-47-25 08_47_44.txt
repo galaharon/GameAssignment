@@ -1,6 +1,0 @@
-08:47:44 [INFO] System loading!
-08:47:44 [INFO] Initialising frame...
-08:47:44 [INFO] Initialising Main Menu...
-08:47:44 [INFO] Frame initialised successfully.
-08:47:44 [INFO] Now playing: main
-08:47:44 [INFO] Now playing: endless

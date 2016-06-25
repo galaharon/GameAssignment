@@ -48,7 +48,7 @@ public class BeatFile
 		try(FileOutputStream out = new FileOutputStream(file))
 		{
 			FileChannel channel = out.getChannel();
-			ByteBuffer buf = channel.map(FileChannel.MapMode.READ_WRITE, 0, this.songName.getBytes().length + 4 + 8*this.timeDiffs.length + 4);
+			ByteBuffer buf = ByteBuffer.allocate(this.songName.getBytes().length + 4 + 8*this.timeDiffs.length + 4);
 			buf.putInt(this.songName.getBytes().length);
 			buf.put(this.songName.getBytes("UTF-8"));
 			buf.putInt(this.timeDiffs.length);
@@ -56,6 +56,8 @@ public class BeatFile
 			{
 				buf.putLong(l);
 			}
+			buf.rewind();
+			channel.write(buf);
 			channel.close();
 		}
 		catch (IOException e)

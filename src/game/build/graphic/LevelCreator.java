@@ -1,5 +1,7 @@
 package game.build.graphic;
 
+import game.build.main.BeatFile;
+import game.build.main.Main;
 import game.build.main.SongPlayer;
 import game.build.util.Logger;
 import game.build.util.Resources;
@@ -55,9 +57,17 @@ public class LevelCreator extends MenuPane
 				long time = System.currentTimeMillis();
 				temp.add(time - lastTime);
 				lastTime = time;
+				//Visual effect?
 			}});
-		SongPlayer.playSong(this.song);
+		SongPlayer.playSong(this.song); //Add delay?
 		lastTime = System.currentTimeMillis();
 	}
 	
+	public void songFinished()
+	{
+		SongPlayer.playSoundEffect("complete_creation");
+		long[] array = temp.stream().mapToLong(Long::valueOf).toArray();
+		new BeatFile(this.song, array).toFile(this.song);
+		Main.setCurrentScreen(Screens.mainMenu());
+	}
 }

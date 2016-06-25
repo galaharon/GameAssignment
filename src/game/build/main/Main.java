@@ -50,6 +50,10 @@ public class Main
 			else if(currentPane instanceof LevelCreator)
 			{
 				currentPane.requestFocusInWindow();
+				if(!SongPlayer.playing.get())
+				{
+					((LevelCreator)currentPane).songFinished();
+				}
 			}
 		}
 		

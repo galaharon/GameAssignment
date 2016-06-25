@@ -1,0 +1,4 @@
+02:39:36 [INFO] System loading!
+02:39:36 [INFO] Initialising frame.
+02:39:36 [INFO] Initialising menu... 
+02:39:36 [INFO] Frame initialised successfully.

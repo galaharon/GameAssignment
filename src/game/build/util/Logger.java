@@ -31,6 +31,27 @@ public class Logger
 			System.err.println("Failed to create log files! Game exiting.");
 			throwUnchecked(e);
 		}
+		File[] files = new File("logs").listFiles();
+		if(files.length > 10)
+		{
+			File oldestLog = null, oldestDebug = null;
+			for(File f : files)
+			{
+				
+				if(f.getName().startsWith("log"))
+				{
+					System.out.println(f);
+					oldestLog = oldestLog == null ? f : f.lastModified() < oldestLog.lastModified() ? f : oldestLog;
+				}
+				else if(f.getName().startsWith("debug"))
+				{
+					oldestDebug = oldestDebug == null ? f : f.lastModified() < oldestDebug.lastModified() ? f : oldestDebug;
+				}
+			}
+			trace("Log count exceeds 10, deleting oldest debug and log.");
+			oldestLog.delete();
+			oldestDebug.delete();
+		}
 	}
 	
 	public static void enableConsoleMode()

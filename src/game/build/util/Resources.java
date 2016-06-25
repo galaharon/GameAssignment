@@ -88,4 +88,5 @@ public class Resources
 		WritableRaster raster = image.copyData(null);
 		return new BufferedImage(model, raster, alpha, null);
 	}
+	
 }

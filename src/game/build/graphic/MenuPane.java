@@ -2,23 +2,29 @@ package game.build.graphic;
 
 import game.build.util.Resources;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 
-public class MenuPane extends JLayeredPane
+public class MenuPane extends JLayeredPane implements MouseMotionListener, MouseListener
 {
 	private final BufferedImage bg = Resources.getImage("main_background");
 	
 	public MenuPane()
 	{
 		this.setLayout(new GridBagLayout());
+		this.addMouseMotionListener(this);
+		this.addMouseListener(this);
 	}
 	
 	public void addLayer(JComponent layer)
@@ -48,4 +54,85 @@ public class MenuPane extends JLayeredPane
 		g2d.drawImage(bg, x, y, this);
 		g2d.dispose();
 	}
+
+	@Override
+	public void mouseDragged(MouseEvent e)
+	{
+		synchronized(this.getTreeLock())
+		{
+			for(Component c : this.getComponents())
+			{
+				if(c instanceof ButtonPanel)
+				{
+					((ButtonPanel) c).mouseDragged(e);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e)
+	{
+		synchronized(this.getTreeLock())
+		{
+			for(Component c : this.getComponents())
+			{
+				if(c instanceof ButtonPanel)
+				{
+					((ButtonPanel) c).mouseMoved(e);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{
+		synchronized(this.getTreeLock())
+		{
+			for(Component c : this.getComponents())
+			{
+				if(c instanceof ButtonPanel)
+				{
+					((ButtonPanel) c).mouseClicked(e);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+		synchronized(this.getTreeLock())
+		{
+			for(Component c : this.getComponents())
+			{
+				if(c instanceof ButtonPanel)
+				{
+					((ButtonPanel) c).mousePressed(e);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{
+		synchronized(this.getTreeLock())
+		{
+			for(Component c : this.getComponents())
+			{
+				if(c instanceof ButtonPanel)
+				{
+					((ButtonPanel) c).mouseReleased(e);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e){}
+
+	@Override
+	public void mouseExited(MouseEvent e){}
 }

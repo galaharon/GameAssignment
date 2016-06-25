@@ -1,5 +1,6 @@
 package game.build.main;
 
+import static game.build.util.Reference.BUTTON;
 import static game.build.util.Reference.GAME_DIMENSION;
 import static game.build.util.Reference.TITLE;
 import static game.build.util.Reference.VERSION;
@@ -7,14 +8,15 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import game.build.graphic.ButtonPanel;
 import game.build.graphic.MenuPane;
 import game.build.util.Logger;
+import game.build.util.Reference;
 import game.build.util.Resources;
 
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.util.Arrays;
 
 import javax.swing.JFrame;
 
@@ -42,12 +44,16 @@ public class Main
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setPreferredSize(GAME_DIMENSION);
 		frame.setResizable(false);
+		frame.setLayout(new BorderLayout());
 		
 		Logger.info("Initialising menu... ");
 		MenuPane menuPane = new MenuPane();
 		
-		menuPane.add(new ButtonPanel(0,0));
-		
+		int first = 300;
+		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width -32 - 2*BUTTON.width)/2,first, "play"));
+		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width +32)/2,first, "create"));
+		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width -32 - 2*BUTTON.width)/2, first + BUTTON.height + 32, "info"));
+		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width + 32)/2,first + BUTTON.height + 32, "exit"));
 		
 		frame.add(menuPane);
 		
@@ -79,4 +85,8 @@ public class Main
 		frame.setCursor(defaultCustom);
 	}
 	
+	public static void exit()
+	{
+		frame.dispose();
+	}
 }

@@ -4,6 +4,7 @@ import static game.build.util.Reference.GAME_DIMENSION;
 import static game.build.util.Reference.TITLE;
 import static game.build.util.Reference.VERSION;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import game.build.graphic.EndlessMode;
 import game.build.graphic.MenuPane;
 import game.build.graphic.Screens;
 import game.build.util.Logger;
@@ -24,14 +25,28 @@ public class Main
 	private static final BufferedImage cursorImage = Resources.getIcon("cursor", ".png");
 	private static final Cursor defaultCustom = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(25, 25), "customCursor");
 	private static MenuPane currentPane = null;
+	private volatile static boolean hack = true;
 	
 	public static void main(String[] args) throws Exception
 	{
+		Runtime.getRuntime().addShutdownHook(new CleanUpThread());
 		Logger.enableConsoleMode();
 		Logger.info("System loading!");
 		Logger.info("Initialising frame...");
 		initFrame();
 		Logger.info("Frame initialised successfully.");
+		SongPlayer.playSong("main");
+		while(hack)
+		{
+			Thread.sleep(6);
+			if(currentPane instanceof EndlessMode)
+			{
+				SongPlayer.playSong("endless");
+				((EndlessMode)currentPane).update();
+				currentPane.validate();
+				currentPane.repaint();
+			}
+		}
 	}
 	
 	/**
@@ -92,5 +107,6 @@ public class Main
 	public static void exit()
 	{
 		frame.dispose();
+		System.exit(0);
 	}
 }

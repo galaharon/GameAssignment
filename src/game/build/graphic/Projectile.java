@@ -1,6 +1,10 @@
 package game.build.graphic;
 
+import game.build.util.Reference;
 import game.build.util.Resources;
+
+import java.awt.Point;
+import java.util.Random;
 
 @SuppressWarnings("serial")
 public class Projectile extends ImagePanel
@@ -8,21 +12,31 @@ public class Projectile extends ImagePanel
 	private boolean isDead;
 	private long lastTick = System.currentTimeMillis();
 	private int msRemaining;
-	private double velocity; //pixels/ms
-	private final double direction;
+	private double xSpeed,ySpeed;
+	private double velocity;
 	public final int worth;
+	private static final Random r = new Random();
 	
-	public Projectile(int x, int y, int time, double vel, double dir, int points)
+	public Projectile(Point gen, int time, Point target, double vel, int points)
 	{
-		super(Resources.getIcon("projectile"), x, y);
+		super(Resources.getIcon("projectile" + r.nextInt(8)), gen.x, gen.y);
 		this.msRemaining = time;
+		this.xSpeed = (target.getX() - gen.x);
+		this.ySpeed = (target.getY() - gen.y);
 		this.velocity = vel;
-		this.direction = dir;
+		double factor = vel/Math.sqrt(xSpeed * xSpeed + ySpeed*ySpeed);
+		this.xSpeed *= factor;
+		this.ySpeed *= factor;
 		this.worth = points;
 	}
 	
 	public void update()
 	{
+		if(Math.abs(this.xOffset - Reference.GAME_DIMENSION.width/2) > Reference.GAME_DIMENSION.width/2
+			||Math.abs(this.yOffset - Reference.GAME_DIMENSION.height/2) > Reference.GAME_DIMENSION.height/2)
+		{
+			this.kill();
+		}
 		if(!this.isDead)
 		{
 			long time = System.currentTimeMillis();
@@ -31,13 +45,13 @@ public class Projectile extends ImagePanel
 			this.msRemaining = (int) (this.msRemaining - diff);
 			if(this.msRemaining <= 0)
 			{
-				this.isDead = true;
+				this.kill();
 				return;
 			}
 			else
 			{
-				this.xOffset = (int)Math.floor(this.xOffset + this.velocity * Math.cos(this.direction) * diff);
-				this.yOffset = (int)Math.floor(this.yOffset + this.velocity * Math.sin(this.direction) * diff);
+				this.xOffset += xSpeed;
+				this.yOffset += ySpeed;
 				this.repaint();
 			}
 		}
@@ -46,6 +60,11 @@ public class Projectile extends ImagePanel
 	public boolean isDead()
 	{
 		return this.isDead;
+	}
+	
+	protected void kill()
+	{
+		this.isDead = true;
 	}
 
 }

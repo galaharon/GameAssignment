@@ -93,7 +93,7 @@ public class Logger
 				BufferedWriter b = new BufferedWriter(f);
 				PrintWriter d = new PrintWriter(b))
 		{
-			d.write(getTime() + "[EXCEPTION]");
+			d.write(getTime() + " [EXCEPTION] ");
 			e.printStackTrace(d);
 			b.newLine();
 			if(consoleMode)

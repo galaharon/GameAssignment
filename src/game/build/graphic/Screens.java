@@ -9,11 +9,13 @@ import static game.build.util.Reference.GAME_DIMENSION;
 import static game.build.util.Reference.INFO_BUTTON;
 import static game.build.util.Reference.PLAY_BUTTON;
 import static game.build.util.Reference.SONG_SELECT_BUTTON;
+import game.build.main.SongPlayer;
 
 public class Screens
 {
 	public static MenuPane mainMenu()
 	{
+		SongPlayer.playSong("main");
 		MenuPane menuPane = new MenuPane("main_background");
 		int first = 300;
 		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width -32 - 2*BUTTON.width)/2,first, PLAY_BUTTON));
@@ -46,6 +48,12 @@ public class Screens
 	
 	public static MenuPane endlessMode()
 	{
+		SongPlayer.playSong("endless");
 		return new EndlessMode();
+	}
+
+	public static MenuPane endlessOver(long survivedTime)
+	{
+		return null;
 	}
 }

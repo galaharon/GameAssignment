@@ -67,7 +67,6 @@ public class Resources
 	public static BufferedImage getIcon(String icon, String type)
 	{
 		File path = new File(icons.getAbsolutePath() + separator + icon + type);
-		System.out.println(path.getAbsolutePath());
 		try
 		{
 			return imageCache.get(icon, ()->ImageIO.read(path));

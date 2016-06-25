@@ -21,7 +21,7 @@ public class MenuPane extends JLayeredPane implements MouseMotionListener, Mouse
 {
 	private final BufferedImage bg;
 	
-	public MenuPane(String name)
+	protected MenuPane(String name)
 	{
 		this.bg = Resources.getImage(name);
 		this.setLayout(new GridBagLayout());

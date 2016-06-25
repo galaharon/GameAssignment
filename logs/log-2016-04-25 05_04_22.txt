@@ -1,7 +1,0 @@
-05:04:22 [INFO] System loading!
-05:04:22 [INFO] Initialising frame...
-05:04:22 [INFO] Initialising Main Menu...
-05:04:22 [INFO] Frame initialised successfully.
-05:04:23 [ERROR] Failed to load image endless
-05:04:23 [ERROR] Resorting to default graphic.
-05:04:23 [INFO] Endless mode activated.

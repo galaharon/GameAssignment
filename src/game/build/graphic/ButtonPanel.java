@@ -59,7 +59,6 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
-		System.out.println(this.name + " entered");
 		Random random = new Random();
 		Main.changeCursorColour(random.nextInt(256), random.nextInt(256), random.nextInt(256));
 		this.image = Resources.getImage("buttonHighlight_" + this.name);
@@ -69,7 +68,6 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 	@Override
 	public void mouseExited(MouseEvent e)
 	{
-		System.out.println(this.name + " exited");
 		Main.defaultCustomCursor();
 		this.image = Resources.getImage("button_" + this.name);
 		this.repaint();

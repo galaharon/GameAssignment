@@ -7,6 +7,7 @@ import static game.build.util.Reference.ENDLESS_BUTTON;
 import static game.build.util.Reference.EXIT_BUTTON;
 import static game.build.util.Reference.INFO_BUTTON;
 import static game.build.util.Reference.PLAY_BUTTON;
+import static game.build.util.Reference.SONG_SELECT_BUTTON;
 import game.build.main.Main;
 import game.build.util.Resources;
 
@@ -48,7 +49,9 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 			case BACK_BUTTON:
 				Main.setCurrentScreen(Screens.mainMenu()); return;
 			case ENDLESS_BUTTON:
-				Main.setCurrentScreen(Screens.endlessMode());
+				Main.setCurrentScreen(Screens.endlessMode()); return;
+			case SONG_SELECT_BUTTON:
+				Main.setCurrentScreen(Screens.songSelect()); return;
 			}
 		}
 	}

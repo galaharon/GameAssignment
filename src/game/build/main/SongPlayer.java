@@ -2,7 +2,6 @@ package game.build.main;
 
 import static java.io.File.separator;
 import game.build.util.Logger;
-import game.build.util.Utils;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -43,7 +42,6 @@ public class SongPlayer
 			{
 				Logger.fatal("Failed to play song: " + name);
 				Logger.trace(e);
-				Utils.throwUnchecked(e);
             }
 		});
 		currentSong = name;
@@ -68,9 +66,8 @@ public class SongPlayer
 			{
 				Logger.error("Failed to play effect: " + name);
 				Logger.trace(e);
-				Utils.throwUnchecked(e);
             }
-		}).start();;
+		}).start();
 	}
 	
 	@SuppressWarnings("deprecation")

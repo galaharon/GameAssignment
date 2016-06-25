@@ -10,6 +10,12 @@ import static game.build.util.Reference.INFO_BUTTON;
 import static game.build.util.Reference.PLAY_BUTTON;
 import static game.build.util.Reference.SONG_SELECT_BUTTON;
 import game.build.main.SongPlayer;
+import game.build.util.Resources;
+
+import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Screens
 {
@@ -27,7 +33,19 @@ public class Screens
 
 	public static MenuPane levelCreation()
 	{
-		return null;
+		JFileChooser chooser = new JFileChooser(Resources.songDir);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Song files (*.mp3)", "mp3");
+		chooser.setDialogTitle("Load a song");
+		chooser.setFileFilter(filter);
+		MenuPane pane = mainMenu();
+		int returnVal = chooser.showOpenDialog(pane);
+		if(returnVal == JFileChooser.APPROVE_OPTION)
+		{
+			File song = chooser.getSelectedFile();
+			return new LevelCreator(song);
+		}
+		
+		return pane;
 	}
 
 	public static MenuPane infoScreen()
@@ -56,5 +74,22 @@ public class Screens
 	{
 		System.out.println((min != 0 ? min + " minutes " : "") + String.format("%d.%d seconds",sec, ms));
 		return mainMenu();
+	}
+
+	public static MenuPane songSelect()
+	{
+		JFileChooser chooser = new JFileChooser(Resources.mapDir);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Beatmap file (*.map)", "map");
+		chooser.setDialogTitle("Load a song");
+		chooser.setFileFilter(filter);
+		MenuPane pane = playSelectScreen();
+		int returnVal = chooser.showOpenDialog(pane);
+		if(returnVal == JFileChooser.APPROVE_OPTION)
+		{
+			File song = chooser.getSelectedFile();
+			System.out.println(song);
+			//return GAME(song);
+		}
+		return pane;
 	}
 }

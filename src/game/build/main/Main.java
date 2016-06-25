@@ -5,6 +5,7 @@ import static game.build.util.Reference.TITLE;
 import static game.build.util.Reference.VERSION;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import game.build.graphic.EndlessMode;
+import game.build.graphic.LevelCreator;
 import game.build.graphic.MenuPane;
 import game.build.graphic.Screens;
 import game.build.util.Logger;
@@ -45,6 +46,10 @@ public class Main
 				((EndlessMode)currentPane).update();
 				currentPane.validate();
 				currentPane.repaint();
+			}
+			else if(currentPane instanceof LevelCreator)
+			{
+				currentPane.requestFocusInWindow();
 			}
 		}
 		

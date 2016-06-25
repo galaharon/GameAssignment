@@ -1,8 +1,0 @@
-09:29:11 [TRACE] Log count exceeds 10, deleting oldest debug and log.
-09:29:11 [INFO] System loading!
-09:29:11 [INFO] Initialising frame...
-09:29:11 [INFO] Initialising Main Menu...
-09:29:11 [INFO] Now playing: main
-09:29:11 [INFO] Frame initialised successfully.
-09:29:14 [TRACE] Clean up thread initiated.
-09:29:14 [TRACE] Clean up complete.

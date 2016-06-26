@@ -1,8 +1,10 @@
 package game.build.graphic;
 
+import static game.build.util.Reference.GAME_DIMENSION;
 import static java.awt.Color.PINK;
 import static java.awt.Font.PLAIN;
 import game.build.util.Logger;
+import game.build.util.Reference;
 import game.build.util.Resources;
 
 import java.awt.Color;
@@ -33,10 +35,10 @@ public class EndlessLoss extends MenuPane
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setColor(PINK);
 		g2d.setFont(TITLE_FONT);
-		g2d.drawString("You Survived For", 170, 180);
+		g2d.drawString("You Survived For", (GAME_DIMENSION.width-940)/2, GAME_DIMENSION.height*180/720);
 		g2d.setColor(WEAK_RED);
 		g2d.setFont(TIME_FONT);
-		g2d.drawString(this.survivedText, centreTextOffset(this.survivedText.length()), 320);
+		g2d.drawString(this.survivedText, centreTextOffset(this.survivedText.length()), GAME_DIMENSION.height*320/720);
 		g2d.dispose();
 	}
 	
@@ -44,12 +46,12 @@ public class EndlessLoss extends MenuPane
 	{
 		switch(l)
 		{
-		case 10: return 428;
-		case 11: return 392;
-		case 18: return 285;
-		case 19: return 245;
+		case 10: return (GAME_DIMENSION.width - 424)/2;
+		case 11: return (GAME_DIMENSION.width-492)/2;
+		case 18: return (GAME_DIMENSION.width-710)/2;
+		case 19: return (GAME_DIMENSION.width -790)/2;
 		default:
-			return (int) Math.round(604.746D - 18.4308D*l); // linear interpolation (who survives for 10+ minutes anyway?)
+			return (int) Math.round((GAME_DIMENSION.width-37.0769D*l-66.3846D)/2); // linear interpolation (who survives for 10+ minutes anyway?)
 		}
 	}
 }

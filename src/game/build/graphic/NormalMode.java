@@ -8,7 +8,6 @@ import game.build.util.Utils;
 
 import java.io.File;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("serial")
@@ -32,11 +31,10 @@ public class NormalMode extends BaseGame
 		if(index < this.beatMap.arrSize() && curr - this.lastTime >= this.beatMap.get(index)-8) //8ms offset seems to fix input lag
 		{
 			index++;
-			Random r = new Random();
-			this.genRandomProjectiles(r.nextInt(3) + 1);
+			this.genRandomProjectiles(random.nextInt(3) + 1);
 			if(Utils.percentChance(1))
 			{
-				vel+=r.nextDouble();
+				vel+=random.nextDouble();
 			}
 			this.lastTime = curr;
 			//Change depending on volume, etc.
@@ -61,7 +59,7 @@ public class NormalMode extends BaseGame
 	void onHit()
 	{
 		SongPlayer.playSoundEffect("hit");
-		SongPlayer.playSoundEffect("loss");
+		SongPlayer.playSong("loss");
 		long survivedTime = System.currentTimeMillis() - this.startTime;
 		for(Projectile p : this.projectiles)
 		{
@@ -76,7 +74,7 @@ public class NormalMode extends BaseGame
 	
 	public void gameWon()
 	{
-		SongPlayer.playSoundEffect("won");
+		SongPlayer.playSong("won");
 		for(Projectile p : this.projectiles)
 		{
 			p.kill();

@@ -3,10 +3,12 @@ package game.build.main;
 import static game.build.util.Reference.GAME_DIMENSION;
 import static game.build.util.Reference.TITLE;
 import static game.build.util.Reference.VERSION;
+import static java.io.File.separator;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import game.build.graphic.EndlessMode;
 import game.build.graphic.LevelCreator;
 import game.build.graphic.MenuPane;
+import game.build.graphic.NormalLoss;
 import game.build.graphic.NormalMode;
 import game.build.graphic.Screens;
 import game.build.util.Logger;
@@ -18,6 +20,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import java.io.File;
 
 import javax.swing.JFrame;
 
@@ -55,6 +58,12 @@ public class Main
 				if(!SongPlayer.playing.get())
 				{
 					((LevelCreator)currentPane).songFinished();
+				}
+				else
+				{
+					((LevelCreator)currentPane).update();
+					currentPane.validate();
+					currentPane.repaint();
 				}
 			}
 			else if(currentPane instanceof NormalMode)
@@ -130,5 +139,12 @@ public class Main
 	{
 		frame.dispose();
 		System.exit(0);
+	}
+
+	public static void normalRetry()
+	{
+		File song = new File("resources" + separator + "maps" + separator + ((NormalLoss)currentPane).getSong() + ".map");
+		SongPlayer.loop.set(false);
+		setCurrentScreen(new NormalMode(song));
 	}
 }

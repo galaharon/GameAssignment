@@ -10,6 +10,7 @@ import java.util.Random;
 public class Utils
 {
 	private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("hh:mm:ss");
+	private static final Random random = new Random();
 	/**
 	 * Used to rethrow checked exceptions without wrapping them in an unchecked exception.
 	 * @param e - the exception to throw
@@ -63,6 +64,6 @@ public class Utils
 
 	public static boolean percentChance(double d)
 	{
-		return new Random().nextDouble() < d/100D;
+		return random.nextDouble() < d/100D;
 	}
 }

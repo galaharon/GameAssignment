@@ -7,6 +7,7 @@ import static game.build.util.Reference.ENDLESS_BUTTON;
 import static game.build.util.Reference.ENDLESS_TRY_AGAIN;
 import static game.build.util.Reference.EXIT_BUTTON;
 import static game.build.util.Reference.INFO_BUTTON;
+import static game.build.util.Reference.NORMAL_TRY_AGAIN;
 import static game.build.util.Reference.PLAY_BUTTON;
 import static game.build.util.Reference.SONG_SELECT_BUTTON;
 import game.build.main.Main;
@@ -22,6 +23,7 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 {
 	private final String name;
 	private boolean mouseEntered = false;
+	private static final Random random = new Random();
 	
 	public ButtonPanel(int x, int y, String imageName)
 	{
@@ -54,6 +56,8 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 				Main.setCurrentScreen(Screens.endlessMode()); return;
 			case SONG_SELECT_BUTTON:
 				Main.setCurrentScreen(Screens.songSelect()); return;
+			case NORMAL_TRY_AGAIN:
+				Main.normalRetry(); return;
 			}
 		}
 	}
@@ -64,7 +68,6 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
-		Random random = new Random();
 		Main.changeCursorColour(random.nextInt(256), random.nextInt(256), random.nextInt(256));
 		this.image = Resources.getImage("buttonHighlight_" + this.name);
 		this.repaint();

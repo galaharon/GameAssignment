@@ -44,7 +44,6 @@ public class SongPlayer
 				decoder.stop();
 				}
 				while(loop.get());
-				
 				playing.set(false);
 				currentSong.set(null);
 			}

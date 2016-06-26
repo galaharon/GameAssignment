@@ -60,7 +60,7 @@ public class MenuPane extends JLayeredPane implements MouseMotionListener, Mouse
 	@Override
 	public void mouseDragged(MouseEvent e)
 	{
-		synchronized(this.getTreeLock())
+		/*synchronized(this.getTreeLock())
 		{
 			for(Component c : this.getComponents())
 			{
@@ -69,7 +69,7 @@ public class MenuPane extends JLayeredPane implements MouseMotionListener, Mouse
 					((ButtonPanel) c).mouseDragged(e);
 				}
 			}
-		}
+		}*/ //unused
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class MenuPane extends JLayeredPane implements MouseMotionListener, Mouse
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		synchronized(this.getTreeLock())
+		/*synchronized(this.getTreeLock())
 		{
 			for(Component c : this.getComponents())
 			{
@@ -99,7 +99,7 @@ public class MenuPane extends JLayeredPane implements MouseMotionListener, Mouse
 					((ButtonPanel) c).mouseClicked(e);
 				}
 			}
-		}
+		}*///unused
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class MenuPane extends JLayeredPane implements MouseMotionListener, Mouse
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		synchronized(this.getTreeLock())
+		/*synchronized(this.getTreeLock())
 		{
 			for(Component c : this.getComponents())
 			{
@@ -129,7 +129,7 @@ public class MenuPane extends JLayeredPane implements MouseMotionListener, Mouse
 					((ButtonPanel) c).mouseReleased(e);
 				}
 			}
-		}
+		}*/ //UNUSED
 	}
 
 	@Override

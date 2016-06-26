@@ -14,6 +14,7 @@ public class Reference
 	public static final String INFO_BUTTON = "info";
 	public static final String BACK_BUTTON = "back";
 	public static final String ENDLESS_TRY_AGAIN = "endlessTryAgain";
+	public static final String NORMAL_TRY_AGAIN = "normalTryAgain";
 	public static final String ENDLESS_BUTTON = "endless";
 	public static final String SONG_SELECT_BUTTON = "song";
 }

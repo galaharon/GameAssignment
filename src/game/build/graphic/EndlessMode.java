@@ -6,7 +6,6 @@ import game.build.util.Logger;
 import game.build.util.Utils;
 
 import java.util.Iterator;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("serial")
@@ -25,15 +24,14 @@ public class EndlessMode extends BaseGame
 		long curr = System.currentTimeMillis();
 		if(curr - this.lastTime >= this.diff)
 		{
-			Random r = new Random();
-			this.genRandomProjectiles(r.nextInt(5) + 1);
+			this.genRandomProjectiles(random.nextInt(5) + 1);
 			if(Utils.percentChance(diff/40D))
 			{
-				diff = Math.max(diff - 10 - r.nextInt(100), 200); //spawn difference in time increase
+				diff = Math.max(diff - 10 - random.nextInt(100), 200); //spawn difference in time increase
 			}
 			if(Utils.percentChance(2.5D)) //velocity chance 1% per spawn to increase 0-1
 			{
-				vel+=r.nextDouble()/2D;
+				vel+=random.nextDouble()/2D;
 			}
 			this.lastTime = curr;
 		}

@@ -8,6 +8,7 @@ import static game.build.util.Reference.ENDLESS_TRY_AGAIN;
 import static game.build.util.Reference.EXIT_BUTTON;
 import static game.build.util.Reference.GAME_DIMENSION;
 import static game.build.util.Reference.INFO_BUTTON;
+import static game.build.util.Reference.NORMAL_TRY_AGAIN;
 import static game.build.util.Reference.PLAY_BUTTON;
 import static game.build.util.Reference.SONG_SELECT_BUTTON;
 import game.build.main.SongPlayer;
@@ -102,7 +103,6 @@ public class Screens
 		if(returnVal == JFileChooser.APPROVE_OPTION)
 		{
 			File song = chooser.getSelectedFile();
-			System.out.println(song);
 			SongPlayer.loop.set(false);
 			NormalMode mode = new NormalMode(song);
 			return mode;
@@ -112,14 +112,23 @@ public class Screens
 
 	public static MenuPane normalOver(String songName, int min, int sec, int ms)
 	{
-		System.out.println("Lost " + songName +", survived for " + formatTime(min, sec, ms));
-		return mainMenu();
+		SongPlayer.loop.set(false);
+		SongPlayer.playSong("loss");
+		SongPlayer.loop.set(true);
+		NormalLoss pane = new NormalLoss(songName, formatTime(min, sec, ms));
+		pane.addLayer(new ButtonPanel(GAME_DIMENSION.width - BUTTON.width - 32,GAME_DIMENSION.height - BUTTON.height - 64, NORMAL_TRY_AGAIN));
+		pane.addLayer(new ButtonPanel(32,GAME_DIMENSION.height - BUTTON.height - 64, BACK_BUTTON));
+		return pane;
 	}
 
 	public static MenuPane normalWon(String songName)
 	{
-		System.out.println("Won " + songName + "!");
-		return mainMenu();
+		SongPlayer.loop.set(false);
+		SongPlayer.playSong("won");
+		SongPlayer.loop.set(true);
+		NormalWon pane = new NormalWon(songName);
+		pane.addLayer(new ButtonPanel(32,GAME_DIMENSION.height - BUTTON.height - 64, BACK_BUTTON));
+		return pane;
 	}
 	
 	public static String formatTime(int min, int sec, int ms)

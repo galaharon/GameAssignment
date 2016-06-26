@@ -18,6 +18,7 @@ public abstract class BaseGame extends MenuPane
 	long lastTime = System.currentTimeMillis();
 	final long startTime = lastTime;
 	double vel = 1.7D;
+	Random random = new Random();
 	
 	public BaseGame(String s)
 	{
@@ -42,7 +43,6 @@ public abstract class BaseGame extends MenuPane
 		int mouseX = mouse.x - this.getLocationOnScreen().x;
 		int mouseY = mouse.y - this.getLocationOnScreen().y;
 		
-		
 		for(Projectile p : projectiles)
 		{
 			if(p.isInBounds(mouseX, mouseY))
@@ -63,9 +63,8 @@ public abstract class BaseGame extends MenuPane
 	
 	void genRandomProjectile()
 	{
-		Random r = new Random();
 		Point mouse = MouseInfo.getPointerInfo().getLocation();
-		Point randPoint = Utils.randomPointOnBoundary(r, 32);
+		Point randPoint = Utils.randomPointOnBoundary(random, 32);
 		int time = 10000;
 		Projectile p = new Projectile(randPoint, time, new Point(mouse.x - this.getLocationOnScreen().x, mouse.y - this.getLocationOnScreen().y), vel,0);
 		

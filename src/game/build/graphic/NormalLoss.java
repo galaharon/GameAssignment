@@ -1,7 +1,6 @@
 package game.build.graphic;
 
 import static game.build.util.Reference.GAME_DIMENSION;
-import static java.awt.Color.PINK;
 import static java.awt.Font.PLAIN;
 import game.build.util.Logger;
 import game.build.util.Resources;
@@ -12,19 +11,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 @SuppressWarnings("serial")
-public class EndlessLoss extends MenuPane
+public class NormalLoss extends MenuPane
 {
-	private static final Font TITLE_FONT = Resources.getCustomFont().deriveFont(PLAIN, 110);
+	private static final Font TITLE_FONT = Resources.getCustomFont().deriveFont(PLAIN, 150);
 	private static final Font TIME_FONT = Resources.getCustomFont().deriveFont(PLAIN, 80);
 	private static final Color WEAK_RED = new Color(255,30,30);
 	
-	private final String survivedText;
+	private final String survivedText, songTitle;
 	
-	protected EndlessLoss(String text)
+	public NormalLoss(String songName, String formatTime)
 	{
-		super("endlessLoss");
-		Logger.info("Endless mode finished, survived for " + text);
-		this.survivedText = text;
+		super("normalLoss");
+		Logger.info("Normal mode failed, survived for " + formatTime);
+		this.survivedText = formatTime;
+		this.songTitle = songName;
 	}
 	
 	@Override
@@ -32,13 +32,18 @@ public class EndlessLoss extends MenuPane
 	{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
-		g2d.setColor(PINK);
+		g2d.setColor(Color.RED);
 		g2d.setFont(TITLE_FONT);
-		g2d.drawString("You Survived For", (GAME_DIMENSION.width-940)/2, GAME_DIMENSION.height*180/720);
+		g2d.drawString("Game Over!", (GAME_DIMENSION.width - 850)/2, GAME_DIMENSION.height*200/720);
 		g2d.setColor(WEAK_RED);
 		g2d.setFont(TIME_FONT);
 		g2d.drawString(this.survivedText, centreTextOffset(this.survivedText.length()), GAME_DIMENSION.height*320/720);
 		g2d.dispose();
+	}
+	
+	public String getSong()
+	{
+		return this.songTitle;
 	}
 	
 	private static int centreTextOffset(int l)

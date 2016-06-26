@@ -33,7 +33,7 @@ public class EndlessLoss extends MenuPane
 		Graphics2D g2d = (Graphics2D) g.create();
 		g2d.setColor(PINK);
 		g2d.setFont(TITLE_FONT);
-		g2d.drawString("You Survived For", 70, 180);
+		g2d.drawString("You Survived For", 170, 180);
 		g2d.setColor(WEAK_RED);
 		g2d.setFont(TIME_FONT);
 		g2d.drawString(this.survivedText, centreTextOffset(this.survivedText.length()), 320);
@@ -44,12 +44,12 @@ public class EndlessLoss extends MenuPane
 	{
 		switch(l)
 		{
-		case 10: return 328;
-		case 11: return 292;
-		case 18: return 185;
-		case 19: return 145;
+		case 10: return 428;
+		case 11: return 392;
+		case 18: return 285;
+		case 19: return 245;
 		default:
-			return (int) Math.round(504.746D - 18.4308D*l);
+			return (int) Math.round(604.746D - 18.4308D*l); // linear interpolation (who survives for 10+ minutes anyway?)
 		}
 	}
 }

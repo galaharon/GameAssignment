@@ -55,6 +55,11 @@ public class Screens
 	{
 		MenuPane menuPane = new MenuPane("info_screen");
 		menuPane.addLayer(new ButtonPanel(32,GAME_DIMENSION.height - BUTTON.height - 64, BACK_BUTTON));
+		for(int i = 0; i < 8; i++)
+		{
+			menuPane.addLayer(new ImagePanel(Resources.getIcon("projectile"+i), 800 +(i%4)*75, 202 + ((int)(i/4D))*65));
+		}
+		menuPane.addLayer(new ImagePanel(Resources.getIcon("cursor"), 900, 400));
 		return menuPane;
 	}
 

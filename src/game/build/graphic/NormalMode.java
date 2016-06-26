@@ -28,10 +28,9 @@ public class NormalMode extends BaseGame
 	@Override
 	public void update()
 	{
-		long curr = System.currentTimeMillis();
+		long curr = System.currentTimeMillis();  
 		if(index < this.beatMap.arrSize() && curr - this.lastTime >= this.beatMap.get(index)-8) //8ms offset seems to fix input lag
 		{
-			System.out.println("Beat");
 			index++;
 			Random r = new Random();
 			this.genRandomProjectiles(r.nextInt(3) + 1);
@@ -40,7 +39,7 @@ public class NormalMode extends BaseGame
 				vel+=r.nextDouble();
 			}
 			this.lastTime = curr;
-			//Change depending on volume, etc.Iterator<Projectile> it = projectiles.iterator();
+			//Change depending on volume, etc.
 		}
 		Iterator<Projectile> it = projectiles.iterator();
 		while(it.hasNext())

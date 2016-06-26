@@ -14,8 +14,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Logger
 {
-	private static final File debugFile = new File("logs" + separator + "debug-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh_mm_ss")) + ".txt");
-	private static final File generalFile = new File("logs" +separator+ "log-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh_mm_ss")) + ".txt");
+	private static final File debugFile = new File("logs" + separator + "debug-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh_mm_ss")) + ".txt");
+	private static final File generalFile = new File("logs" +separator+ "log-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh_mm_ss")) + ".txt");
 	private static boolean consoleMode = false; //Whether or not to log to console as well.
 	
 	static
@@ -32,7 +32,7 @@ public class Logger
 			throwUnchecked(e);
 		}
 		File[] files = new File("logs").listFiles();
-		if(files.length > 10)
+		if(files.length > 10) //
 		{
 			File oldestLog = null, oldestDebug = null;
 			for(File f : files)

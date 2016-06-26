@@ -32,6 +32,7 @@ public class Main
 	public static void main(String[] args) throws Exception
 	{
 		Runtime.getRuntime().addShutdownHook(new CleanUpThread());
+		
 		Logger.enableConsoleMode();
 		Logger.info("System loading!");
 		Logger.info("Initialising frame...");
@@ -43,8 +44,8 @@ public class Main
 			Thread.sleep(6);
 			if(currentPane instanceof EndlessMode)
 			{
-				SongPlayer.playSong("endless");
-				((EndlessMode)currentPane).update();
+				EndlessMode m = (EndlessMode)currentPane;
+				m.update();
 				currentPane.validate();
 				currentPane.repaint();
 			}
@@ -67,7 +68,6 @@ public class Main
 				currentPane.repaint();
 			}
 		}
-		
 	}
 	
 	/**
@@ -75,16 +75,17 @@ public class Main
 	 */
 	private static void initFrame()
 	{
-		frame.setCursor(defaultCustom);
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setCursor(defaultCustom); 
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE); 
 		frame.setPreferredSize(GAME_DIMENSION);
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout());
 
 		Logger.info("Initialising Main Menu...");
+
 		MenuPane menuPane = Screens.mainMenu();
 		
-		frame.add(menuPane);
+		frame.add(menuPane); 
 		currentPane = menuPane;
 		
 		frame.pack();

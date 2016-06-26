@@ -24,7 +24,7 @@ public class Projectile extends ImagePanel
 		this.xSpeed = (target.getX() - gen.x);
 		this.ySpeed = (target.getY() - gen.y);
 		this.velocity = vel;
-		double factor = vel/Math.sqrt(xSpeed * xSpeed + ySpeed*ySpeed);
+		double factor = this.velocity/Math.sqrt(xSpeed * xSpeed + ySpeed*ySpeed);
 		this.xSpeed *= factor;
 		this.ySpeed *= factor;
 		this.worth = points;
@@ -32,8 +32,8 @@ public class Projectile extends ImagePanel
 	
 	public void update()
 	{
-		if(Math.abs(this.xOffset - Reference.GAME_DIMENSION.width/2) > Reference.GAME_DIMENSION.width/2
-			||Math.abs(this.yOffset - Reference.GAME_DIMENSION.height/2) > Reference.GAME_DIMENSION.height/2)
+		if(Math.abs(this.xOffset - Reference.GAME_DIMENSION.width/2) >= Reference.GAME_DIMENSION.width/2
+			||Math.abs(this.yOffset - Reference.GAME_DIMENSION.height/2) >= Reference.GAME_DIMENSION.height/2)
 		{
 			this.kill();
 		}
@@ -65,6 +65,12 @@ public class Projectile extends ImagePanel
 	protected void kill()
 	{
 		this.isDead = true;
+	}
+
+	public boolean isInBounds(int mouseX, int mouseY)
+	{
+		return this.xOffset <= mouseX && mouseX <= this.xOffset + this.getSize().width
+				&& this.yOffset <= mouseY && mouseY <= this.yOffset + this.getSize().height;
 	}
 
 }

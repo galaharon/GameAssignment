@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("serial")
 public class EndlessMode extends BaseGame
 {
-	private long diff = 1500;
+	private long diff = 1500; 
 	
 	public EndlessMode()
 	{
@@ -29,11 +29,11 @@ public class EndlessMode extends BaseGame
 			this.genRandomProjectiles(r.nextInt(5) + 1);
 			if(Utils.percentChance(diff/40D))
 			{
-				diff = Math.max(diff - 10 - r.nextInt(100), 200);
+				diff = Math.max(diff - 10 - r.nextInt(100), 200); //spawn difference in time increase
 			}
-			if(Utils.percentChance(1))
+			if(Utils.percentChance(2.5D)) //velocity chance 1% per spawn to increase 0-1
 			{
-				vel+=r.nextDouble();
+				vel+=r.nextDouble()/2D;
 			}
 			this.lastTime = curr;
 		}
@@ -58,7 +58,7 @@ public class EndlessMode extends BaseGame
 	public void onHit()
 	{
 		SongPlayer.playSoundEffect("hit");
-		SongPlayer.playSoundEffect("loss");
+		SongPlayer.playSong("loss");
 		long survivedTime = System.currentTimeMillis() - this.startTime;
 		for(Projectile p : this.projectiles)
 		{

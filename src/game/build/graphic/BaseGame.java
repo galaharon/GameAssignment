@@ -45,8 +45,7 @@ public abstract class BaseGame extends MenuPane
 		
 		for(Projectile p : projectiles)
 		{
-			if(p.xOffset <= mouseX && mouseX <= p.xOffset + p.getSize().width
-					&& p.yOffset <= mouseY && mouseY <= p.yOffset + p.getSize().height)
+			if(p.isInBounds(mouseX, mouseY))
 			{
 				this.onHit();
 				return;

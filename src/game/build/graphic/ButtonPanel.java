@@ -4,6 +4,7 @@ import static game.build.util.Reference.BACK_BUTTON;
 import static game.build.util.Reference.BUTTON;
 import static game.build.util.Reference.CREATE_BUTTON;
 import static game.build.util.Reference.ENDLESS_BUTTON;
+import static game.build.util.Reference.ENDLESS_TRY_AGAIN;
 import static game.build.util.Reference.EXIT_BUTTON;
 import static game.build.util.Reference.INFO_BUTTON;
 import static game.build.util.Reference.PLAY_BUTTON;
@@ -49,6 +50,7 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 			case BACK_BUTTON:
 				Main.setCurrentScreen(Screens.mainMenu()); return;
 			case ENDLESS_BUTTON:
+			case ENDLESS_TRY_AGAIN:
 				Main.setCurrentScreen(Screens.endlessMode()); return;
 			case SONG_SELECT_BUTTON:
 				Main.setCurrentScreen(Screens.songSelect()); return;
@@ -80,9 +82,8 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 	public void mouseDragged(MouseEvent e){}
 
 	@Override
-	public void mouseMoved(MouseEvent e)
+	public void mouseMoved(MouseEvent e) 
 	{
-		
 		if(!mouseEntered)
 		{
 			if(this.isInBounds(e))

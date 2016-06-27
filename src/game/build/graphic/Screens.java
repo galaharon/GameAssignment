@@ -68,7 +68,7 @@ public class Screens
 
 	public static MenuPane modeSelect()
 	{
-		MenuPane menuPane = new MenuPane("main_background");
+		MenuPane menuPane = new MenuPane("modeSelect");
 		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width -16 - 2*BUTTON.width)/2,200, SONG_SELECT_BUTTON));
 		menuPane.addLayer(new ButtonPanel((GAME_DIMENSION.width + 16)/2,200, ENDLESS_BUTTON));
 		menuPane.addLayer(new ButtonPanel(32,GAME_DIMENSION.height - BUTTON.height - 64, BACK_BUTTON));

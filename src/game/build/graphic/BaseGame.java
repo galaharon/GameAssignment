@@ -65,8 +65,8 @@ public abstract class BaseGame extends MenuPane
 	{
 		Point mouse = MouseInfo.getPointerInfo().getLocation();
 		Point randPoint = Utils.randomPointOnBoundary(random, 32);
-		int time = 10000;
-		Projectile p = new Projectile(randPoint, time, new Point(mouse.x - this.getLocationOnScreen().x, mouse.y - this.getLocationOnScreen().y), vel,0);
+		//int time = 10000;
+		Projectile p = new Projectile(randPoint, 10000, new Point(mouse.x - this.getLocationOnScreen().x, mouse.y - this.getLocationOnScreen().y), vel,0);
 		
 		this.addLayer(p);
 	}

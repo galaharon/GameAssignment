@@ -12,11 +12,21 @@ import java.util.concurrent.TimeUnit;
 public class EndlessMode extends BaseGame
 {
 	private long diff = 1500; 
+	public static int type = -1;
 	
-	public EndlessMode()
+	public EndlessMode(int i)
 	{
 		super("endless");
+		type = i;
 		Logger.info("Endless mode activated.");
+	}
+	
+	@Override
+	public void tick()
+	{
+		this.update();
+		this.validate();
+		this.repaint();
 	}
 	
 	public void update()
@@ -25,7 +35,7 @@ public class EndlessMode extends BaseGame
 		if(curr - this.lastTime >= this.diff)
 		{
 			this.genRandomProjectiles(random.nextInt(5) + 1);
-			if(Utils.percentChance(diff/40D))
+			if(Utils.percentChance(diff/37.5D))
 			{
 				diff = Math.max(diff - 10 - random.nextInt(100), 200); //spawn difference in time increase
 			}
@@ -48,14 +58,13 @@ public class EndlessMode extends BaseGame
 			}
 			p.update();
 		}
-		this.repaint();
 		this.checkForCollision();
 	}
 	
 	@Override
 	public void onHit()
 	{
-		SongPlayer.playSoundEffect("hit");
+		//SongPlayer.playSoundEffect("hit"); Removed for now
 		SongPlayer.playSong("loss");
 		long survivedTime = System.currentTimeMillis() - this.startTime;
 		for(Projectile p : this.projectiles)

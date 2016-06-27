@@ -50,7 +50,9 @@ public class ButtonPanel extends ImagePanel implements MouseListener, MouseMotio
 			case PLAY_BUTTON:
 				Main.setCurrentScreen(Screens.modeSelect()); return;
 			case BACK_BUTTON:
-				Main.setCurrentScreen(Screens.mainMenu()); return;
+				Main.setCurrentScreen(Screens.mainMenu());
+				EndlessMode.type = -1; //Loop next EndlessSong
+				return;
 			case ENDLESS_BUTTON:
 			case ENDLESS_TRY_AGAIN:
 				Main.setCurrentScreen(Screens.endlessMode()); return;

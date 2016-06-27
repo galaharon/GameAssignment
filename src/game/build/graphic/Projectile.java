@@ -1,6 +1,6 @@
 package game.build.graphic;
 
-import game.build.util.Reference;
+import static game.build.util.Reference.GAME_DIMENSION;
 import game.build.util.Resources;
 
 import java.awt.Point;
@@ -12,7 +12,7 @@ public class Projectile extends ImagePanel
 	private boolean isDead;
 	private long lastTick = System.currentTimeMillis();
 	private int msRemaining;
-	private double xSpeed,ySpeed;
+	private final double xSpeed,ySpeed;
 	private double velocity;
 	public final int worth;
 	private static final Random r = new Random();
@@ -21,19 +21,19 @@ public class Projectile extends ImagePanel
 	{
 		super(Resources.getIcon("projectile" + r.nextInt(8)), gen.x, gen.y);
 		this.msRemaining = time;
-		this.xSpeed = (target.getX() - gen.x);
-		this.ySpeed = (target.getY() - gen.y);
+		double xS = (target.getX() - gen.x);
+		double yS = (target.getY() - gen.y);
 		this.velocity = vel;
-		double factor = this.velocity/Math.sqrt(xSpeed * xSpeed + ySpeed*ySpeed);
-		this.xSpeed *= factor;
-		this.ySpeed *= factor;
+		double factor = this.velocity/Math.sqrt(xS * xS + yS*yS);
+		this.xSpeed = xS*factor;
+		this.ySpeed = yS*factor;
 		this.worth = points;
 	}
 	
 	public void update()
 	{
-		if(Math.abs(this.xOffset - Reference.GAME_DIMENSION.width/2) >= Reference.GAME_DIMENSION.width/2
-			||Math.abs(this.yOffset - Reference.GAME_DIMENSION.height/2) >= Reference.GAME_DIMENSION.height/2)
+		if(this.xOffset <= 0 || this.xOffset >= GAME_DIMENSION.width
+				|| this.yOffset <= 0 || this.yOffset >= GAME_DIMENSION.height)
 		{
 			this.kill();
 		}

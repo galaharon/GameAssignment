@@ -137,4 +137,6 @@ public class MenuPane extends JLayeredPane implements MouseMotionListener, Mouse
 
 	@Override
 	public void mouseExited(MouseEvent e){}
+
+	public void tick(){}
 }

@@ -5,8 +5,6 @@ import static game.build.util.Reference.TITLE;
 import static game.build.util.Reference.VERSION;
 import static java.io.File.separator;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-import game.build.graphic.EndlessMode;
-import game.build.graphic.LevelCreator;
 import game.build.graphic.MenuPane;
 import game.build.graphic.NormalLoss;
 import game.build.graphic.NormalMode;
@@ -45,37 +43,7 @@ public class Main
 		while(hack)
 		{
 			Thread.sleep(6);
-			if(currentPane instanceof EndlessMode)
-			{
-				EndlessMode m = (EndlessMode)currentPane;
-				m.update();
-				currentPane.validate();
-				currentPane.repaint();
-			}
-			else if(currentPane instanceof LevelCreator)
-			{
-				currentPane.requestFocusInWindow();
-				if(!SongPlayer.playing.get())
-				{
-					((LevelCreator)currentPane).songFinished();
-				}
-				else
-				{
-					((LevelCreator)currentPane).update();
-					currentPane.validate();
-					currentPane.repaint();
-				}
-			}
-			else if(currentPane instanceof NormalMode)
-			{
-				((NormalMode)currentPane).update();
-				if(!SongPlayer.playing.get())
-				{
-					((NormalMode)currentPane).gameWon();
-				}
-				currentPane.validate();
-				currentPane.repaint();
-			}
+			currentPane.tick();
 		}
 	}
 	

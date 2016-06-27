@@ -15,12 +15,14 @@ import game.build.main.SongPlayer;
 import game.build.util.Resources;
 
 import java.io.File;
+import java.util.Random;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Screens
 {
+	private static final Random r = new Random();
 	public static MenuPane mainMenu()
 	{
 		SongPlayer.loop.set(false);
@@ -75,10 +77,11 @@ public class Screens
 	
 	public static MenuPane endlessMode()
 	{
+		int i = EndlessMode.type == -1 ? r.nextInt(3) : EndlessMode.type;
 		SongPlayer.loop.set(false);
-		SongPlayer.playSong("endless");
+		SongPlayer.playSong("endless"+i);
 		SongPlayer.loop.set(true);
-		return new EndlessMode();
+		return new EndlessMode(i);
 	}
 
 	public static MenuPane endlessOver(int min, int sec, int ms)

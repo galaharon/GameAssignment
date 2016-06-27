@@ -23,12 +23,22 @@ public class NormalMode extends BaseGame
 		this.beatMap = BeatFile.fromFile(file);
 		SongPlayer.playSong(this.beatMap.songName());
 	}
+	
+	@Override
+	public void tick()
+	{
+		this.update();
+		if(!SongPlayer.playing.get())
+		{
+			this.gameWon();
+		}
+	}
 
 	@Override
 	public void update()
 	{
 		long curr = System.currentTimeMillis();  
-		if(index < this.beatMap.arrSize() && curr - this.lastTime >= this.beatMap.get(index)-8) //8ms offset seems to fix input lag
+		if(index < this.beatMap.arrSize() && curr - this.lastTime >= this.beatMap.get(index)-3) //3ms offset seems to fix input lag
 		{
 			index++;
 			this.genRandomProjectiles(random.nextInt(3) + 1);
@@ -51,14 +61,15 @@ public class NormalMode extends BaseGame
 			}
 			p.update();
 		}
-		this.repaint();
 		this.checkForCollision();
+		this.validate();
+		this.repaint();
 	}
 
 	@Override
 	void onHit()
 	{
-		SongPlayer.playSoundEffect("hit");
+		//SongPlayer.playSoundEffect("hit"); Removed for now
 		SongPlayer.playSong("loss");
 		long survivedTime = System.currentTimeMillis() - this.startTime;
 		for(Projectile p : this.projectiles)

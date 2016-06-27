@@ -70,7 +70,7 @@ public class LevelCreator extends MenuPane
 				Point mouse = MouseInfo.getPointerInfo().getLocation();
 				int scaledX = mouse.x - LevelCreator.this.getLocationOnScreen().x - 25;
 				int scaledY = mouse.y - LevelCreator.this.getLocationOnScreen().y - 25;
-				for(int i = 0; i < 7; i++)
+				for(int i = 0; i < r.nextInt(5)+3; i++)
 				{
 					LevelCreator.this.addLayer(new Projectile(new Point(scaledX, scaledY), 10000, randomPointOnBoundary(r, 10), 4D, 0));
 				}
@@ -79,6 +79,22 @@ public class LevelCreator extends MenuPane
 			}});
 		SongPlayer.playSong(this.song); //Add delay?
 		lastTime = System.currentTimeMillis();
+	}
+	
+	@Override
+	public void tick()
+	{
+		this.requestFocusInWindow();
+		if(!SongPlayer.playing.get())
+		{
+			this.songFinished();
+		}
+		else
+		{
+			this.update();
+			this.validate();
+			this.repaint();
+		}
 	}
 	
 	@Override
@@ -93,7 +109,7 @@ public class LevelCreator extends MenuPane
 	
 	public void songFinished()
 	{
-		SongPlayer.playSoundEffect("complete_creation");
+		//SongPlayer.playSoundEffect("complete_creation"); Removed for now
 		long[] array = temp.stream().mapToLong(Long::valueOf).toArray();
 		new BeatFile(this.song, array).toFile(this.song);
 		synchronized(this.projectiles)
@@ -124,6 +140,5 @@ public class LevelCreator extends MenuPane
 				p.update();
 			}
 		}
-		this.repaint();
 	}
 }

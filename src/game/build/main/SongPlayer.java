@@ -13,7 +13,7 @@ import org.mp3transform.Decoder;
 
 public class SongPlayer
 {
-	private static AtomicReference<Thread> currentThread = new AtomicReference<>();
+	private static Thread currentThread = null;
 	private static AtomicReference<String> currentSong = new AtomicReference<>();
 	public static AtomicBoolean playing = new AtomicBoolean();
 	public static AtomicBoolean loop = new AtomicBoolean();
@@ -24,12 +24,12 @@ public class SongPlayer
 		{
 			return;
 		}
-		if(currentThread.get() != null && currentThread.get().isAlive())
+		if(currentThread != null && currentThread.isAlive())
 		{
 			killThread();
 		}
 		Logger.info("Now playing: " + name);
-		currentThread.set(new Thread(()->{
+		currentThread = new Thread(()->{
 			try
 			{
 				do
@@ -52,15 +52,15 @@ public class SongPlayer
 				Logger.fatal("Failed to play song: " + name);
 				Logger.trace(e);
 			}
-		}));
+		});
 		currentSong.set(name);
-		currentThread.get().start();
+		currentThread.start();
 	}
 	
 	@SuppressWarnings("deprecation")
 	private static void killThread()
 	{
-		currentThread.get().stop();
+		currentThread.stop();
 		playing.set(false);
 	}
 
@@ -87,7 +87,7 @@ public class SongPlayer
 	
 	protected static void cleanUp()
 	{
-		if(currentThread.get() != null && currentThread.get().isAlive())
+		if(currentThread != null && currentThread.isAlive())
 		{
 			killThread();
 		}
